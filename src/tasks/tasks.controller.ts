@@ -8,6 +8,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 
 import { TaskDocument } from './task.schema';
@@ -18,8 +19,8 @@ export class TasksController {
   constructor(private tasksService: TasksService) {}
 
   @Get()
-  findAll(): Promise<TaskDocument[]> {
-    return this.tasksService.findAll();
+  findAll(@Query() query): Promise<TaskDocument[]> {
+    return this.tasksService.findAll(query);
   }
 
   @Get(':id')

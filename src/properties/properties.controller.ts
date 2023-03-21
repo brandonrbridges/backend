@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 
 import { PropertyDocument } from './property.schema';
 import { PropertiesService } from './properties.service';
@@ -9,11 +9,7 @@ export class PropertiesController {
 
   @Get()
   findAll(@Query() query): Promise<PropertyDocument[]> {
-    if (query) {
-      return this.propertiesService.findAll(query);
-    }
-
-    return this.propertiesService.findAll();
+    return this.propertiesService.findAll(query);
   }
 
   @Get(':id')
@@ -22,7 +18,7 @@ export class PropertiesController {
   }
 
   @Post()
-  insertOne(): Promise<PropertyDocument> {
-    return;
+  insertOne(@Body() body): Promise<PropertyDocument> {
+    return this.propertiesService.insertOne(body);
   }
 }

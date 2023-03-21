@@ -25,8 +25,20 @@ export class TasksService {
     @Inject(PropertiesService) private readonly propertiesService,
   ) {}
 
-  async findAll(): Promise<TaskDocument[]> {
-    const data = await this.taskModel.find().exec();
+  async findAll(query?): Promise<TaskDocument[]> {
+    let data: TaskDocument[];
+
+    const { property_id, user_id } = query;
+
+    if (property_id) {
+      console.log({ property_id });
+
+      data = await this.taskModel.find({ property_id }).exec();
+    } else if (user_id) {
+      data = await this.taskModel.find({ user_id }).exec();
+    } else {
+      data = await this.taskModel.find().exec();
+    }
 
     const collated = data?.map(async (task) => {
       task.user = await this.usersService.findById(task.user_id);

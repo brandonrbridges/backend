@@ -51,4 +51,10 @@ export class PropertiesService {
   async findOne(args: object): Promise<PropertyDocument> {
     return this.propertyModel.findOne(args).exec();
   }
+
+  async insertOne(data: object): Promise<PropertyDocument> {
+    const createdProperty = new this.propertyModel(data);
+
+    return createdProperty.save();
+  }
 }
