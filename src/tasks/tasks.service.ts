@@ -31,8 +31,6 @@ export class TasksService {
     const { property_id, user_id } = query;
 
     if (property_id) {
-      console.log({ property_id });
-
       data = await this.taskModel.find({ property_id }).exec();
     } else if (user_id) {
       data = await this.taskModel.find({ user_id }).exec();
@@ -163,8 +161,6 @@ export class TasksService {
   }
 
   async deleteMessage(id: string, message_id: mongoose.Schema.Types.ObjectId) {
-    console.log(id, message_id);
-
     try {
       const task = await this.taskModel.findById(id).exec();
 
