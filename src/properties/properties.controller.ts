@@ -9,8 +9,6 @@ export class PropertiesController {
 
   @Get()
   findAll(@Query() query): Promise<PropertyDocument[]> {
-    console.log(query);
-
     return this.propertiesService.findAll(query);
   }
 
