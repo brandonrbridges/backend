@@ -1,3 +1,4 @@
+import { AiModule } from './ai/ai.module';
 // NestJS Modules
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
@@ -15,6 +16,7 @@ import { TasksModule } from './tasks/tasks.module';
 import { TenantsModule } from './tenants/tenants.module';
 import { UsersModule } from './users/users.module';
 import { GCloudStorageModule } from '@aginix/nestjs-gcloud-storage';
+import { OpenAIModule } from '@platohq/nestjs-openai';
 
 @Module({
   imports: [
@@ -28,7 +30,11 @@ import { GCloudStorageModule } from '@aginix/nestjs-gcloud-storage';
       storageBaseUri: 'https://storage.googleapis.com',
     }),
     MongooseModule.forRoot(process.env.DATABASE_URL),
+    OpenAIModule.register({
+      apiKey: process.env.OPENAI_KEY,
+    }),
     // Application Modules
+    AiModule,
     AuthModule,
     InvitationsModule,
     PropertiesModule,
