@@ -18,5 +18,6 @@ import { PropertiesModule } from 'src/properties/properties.module';
   ],
   controllers: [TasksController],
   providers: [TasksService],
+  exports: [TasksService],
 })
 export class TasksModule {}

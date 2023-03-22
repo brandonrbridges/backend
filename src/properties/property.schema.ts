@@ -32,6 +32,9 @@ export class Property {
 
   @Prop({ type: User })
   tenant: User;
+
+  @Prop({ type: Array<any>, default: [] })
+  tasks: Array<any>;
 }
 
 export const PropertySchema = SchemaFactory.createForClass(Property);

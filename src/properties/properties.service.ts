@@ -18,7 +18,7 @@ export class PropertiesService {
     @Inject(UsersService) private readonly usersService,
   ) {}
 
-  async findAll(query?: object): Promise<PropertyDocument[]> {
+  async findAll(query): Promise<PropertyDocument[]> {
     let data: PropertyDocument[];
 
     if (query) {

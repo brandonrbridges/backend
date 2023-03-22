@@ -6,6 +6,8 @@ import { PropertySchema } from './property.schema';
 import { PropertiesController } from './properties.controller';
 import { PropertiesService } from './properties.service';
 import { PropertiesGateway } from './properties.gateway';
+
+// Module Dependencies
 import { UsersModule } from 'src/users/users.module';
 
 @Module({

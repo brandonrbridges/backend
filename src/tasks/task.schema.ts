@@ -10,7 +10,7 @@ export type TaskDocument = HydratedDocument<Task>;
 
 @Schema()
 export class Task {
-  _id: mongoose.Schema.Types.ObjectId;
+  _id?: mongoose.Schema.Types.ObjectId;
   created_at: Date;
   updated_at: Date;
 
