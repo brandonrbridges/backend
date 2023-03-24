@@ -25,9 +25,8 @@ import { OpenAIModule } from '@platohq/nestjs-openai';
       isGlobal: true,
     }),
     GCloudStorageModule.withConfig({
-      keyFile: require('./service_account.json'),
+      keyFile: './service_account.json',
       defaultBucketname: 'hello-home.app',
-      storageBaseUri: 'https://storage.googleapis.com',
     }),
     MongooseModule.forRoot(process.env.DATABASE_URL),
     OpenAIModule.register({

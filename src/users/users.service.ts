@@ -30,14 +30,12 @@ export class UsersService {
   }
 
   async updateOne(id: string, data: object) {
-    console.log('data', data);
+    const updatedUser = this.userModel
+      .findByIdAndUpdate(id, data, {
+        new: true,
+      })
+      .exec();
 
-    // const updatedUser = this.userModel
-    //   .findByIdAndUpdate(id, data, {
-    //     new: true,
-    //   })
-    //   .exec();
-
-    // return updatedUser;
+    return updatedUser;
   }
 }

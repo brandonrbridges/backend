@@ -47,7 +47,7 @@ export class UsersController {
   @Post(':id/upload-avatar')
   @UseInterceptors(
     GCloudStorageFileInterceptor('file', undefined, {
-      prefix: `users/avatars`,
+      prefix: `avatars/`,
     }),
   )
   uploadAvatar(@Param() params, @UploadedFile() file: UploadedFileMetadata) {
