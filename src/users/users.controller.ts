@@ -3,6 +3,7 @@ import {
   Body,
   Controller,
   Get,
+  HttpCode,
   Param,
   Patch,
   Post,
@@ -25,26 +26,31 @@ export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Get()
+  @HttpCode(200)
   findAll(): Promise<UserDocument[]> {
     return this.usersService.findAll();
   }
 
   @Get(':id')
+  @HttpCode(200)
   findById(@Param() params): Promise<UserDocument> {
     return this.usersService.findById(params.id);
   }
 
   @Post()
+  @HttpCode(201)
   insertOne(): Promise<UserDocument> {
     return;
   }
 
   @Patch(':id')
+  @HttpCode(201)
   updateOne(@Param() params, @Body() data) {
     return this.usersService.updateOne(params.id, data);
   }
 
   @Post(':id/upload-avatar')
+  @HttpCode(201)
   @UseInterceptors(
     GCloudStorageFileInterceptor('file', undefined, {
       prefix: `avatars/`,

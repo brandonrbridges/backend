@@ -28,7 +28,9 @@ export class PropertiesService {
     }
 
     const collated = data?.map(async (property) => {
-      property.tenant = await this.usersService.findById(property.tenant_id);
+      if (property.tenant_id) {
+        property.tenant = await this.usersService.findById(property.tenant_id);
+      }
 
       return property;
     });
@@ -53,7 +55,11 @@ export class PropertiesService {
   }
 
   async insertOne(data: object): Promise<PropertyDocument> {
-    const createdProperty = new this.propertyModel(data);
+    const createdProperty = new this.propertyModel({
+      ...data,
+      status: 'setup',
+      created_at: new Date(),
+    });
 
     return createdProperty.save();
   }
