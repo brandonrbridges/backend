@@ -16,6 +16,9 @@ export class Property {
   @Prop({ type: User })
   user: User;
 
+  @Prop({ type: String })
+  name: string;
+
   @Prop(
     raw({
       line_1: { type: String, required: true },
@@ -26,6 +29,9 @@ export class Property {
     }),
   )
   address: object;
+
+  @Prop({ type: String, required: true })
+  status: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   tenant_id: mongoose.Schema.Types.ObjectId;
