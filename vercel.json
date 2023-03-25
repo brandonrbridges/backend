@@ -9,24 +9,11 @@
       "use": "@vercel/node"
     }
   ],
-
-  "headers": [
+  "routes": [
     {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
-        },
-        {
-          "key": "Access-Control-Allow-Methods",
-          "value": "GET, POST, PATCH, PUT, DELETE"
-        },
-        {
-          "key": "Access-Control-Allow-Headers",
-          "value": "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-        }
-      ]
+      "src": "/(.*)",
+      "dest": "src/main.ts",
+      "methods": ["GET", "POST", "PATCH", "PUT", "DELETE"]
     }
   ]
 }
