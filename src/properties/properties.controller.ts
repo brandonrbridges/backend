@@ -18,8 +18,6 @@ export class PropertiesController {
   @Get()
   @HttpCode(200)
   findAll(@Query() query): Promise<PropertyDocument[]> {
-    console.log('query', query);
-
     return this.propertiesService.findAll(query);
   }
 
