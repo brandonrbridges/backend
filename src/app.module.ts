@@ -1,4 +1,3 @@
-import { AiModule } from './ai/ai.module';
 // NestJS Modules
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
@@ -9,12 +8,17 @@ import { AppService } from './app.service';
 import { AppController } from './app.controller';
 
 // Application Modules
+import { AiModule } from './ai/ai.module';
 import { AuthModule } from './auth/auth.module';
-import { InvitationsModule } from './invitations/invitations.module';
+import { DocumentsModule } from './documents/documents.module';
+import { NotificationsModule } from './notifications/notifications.module';
+import { PaymentsModule } from './payments/payments.module';
 import { PropertiesModule } from './properties/properties.module';
-import { TasksModule } from './tasks/tasks.module';
+import { SubscriptionsModule } from './subscriptions/subscriptions.module';
 import { TenanciesModule } from './tenancies/tenancies.module';
+import { TasksModule } from './tasks/tasks.module';
 import { TenantsModule } from './tenants/tenants.module';
+import { TicketsModule } from './tickets/tickets.module';
 import { UsersModule } from './users/users.module';
 
 // Third Party Modules
@@ -38,11 +42,15 @@ import { OpenAIModule } from '@platohq/nestjs-openai';
     // Application Modules
     AiModule,
     AuthModule,
-    InvitationsModule,
+    DocumentsModule,
+    NotificationsModule,
+    PaymentsModule,
     PropertiesModule,
+    SubscriptionsModule,
     TasksModule,
     TenanciesModule,
     TenantsModule,
+    TicketsModule,
     UsersModule,
   ],
   controllers: [AppController],
