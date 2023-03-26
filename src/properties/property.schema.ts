@@ -25,6 +25,14 @@ export class Property {
 
   status: string;
 
+  type: string;
+
+  bedrooms: number;
+  bathrooms: number;
+
+  deposit: number;
+  rent: number;
+
   tenant_id?: mongoose.Schema.Types.ObjectId;
   tenant?: User;
 

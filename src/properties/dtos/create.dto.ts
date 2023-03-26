@@ -27,14 +27,14 @@ export class CreatePropertyDto {
   tenant_id?: string;
 
   @IsInt()
-  bedrooms?: number;
+  bedrooms: number;
 
   @IsInt()
-  bathrooms?: number;
+  bathrooms: number;
 
   @IsInt()
-  deposit?: number;
+  deposit: number;
 
   @IsInt()
-  rent?: number;
+  rent: number;
 }
