@@ -10,6 +10,7 @@ import { PropertyDocument } from './property.schema';
 
 // Services
 import { UsersService } from 'src/users/users.service';
+import { CreatePropertyDto } from './dtos/create.dto';
 
 @Injectable()
 export class PropertiesService {
@@ -54,7 +55,7 @@ export class PropertiesService {
     return this.propertyModel.findOne(args).exec();
   }
 
-  async insertOne(data: object): Promise<PropertyDocument> {
+  async insertOne(data: CreatePropertyDto): Promise<PropertyDocument> {
     const createdProperty = new this.propertyModel({
       ...data,
       status: 'setup',

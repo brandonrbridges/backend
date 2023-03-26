@@ -1,3 +1,4 @@
+// Nest
 import {
   Body,
   Controller,
@@ -8,8 +9,12 @@ import {
   Query,
 } from '@nestjs/common';
 
+// Property Dependencies
 import { PropertyDocument } from './property.schema';
 import { PropertiesService } from './properties.service';
+
+// Dtos
+import { CreatePropertyDto } from './dtos/create.dto';
 
 @Controller('properties')
 export class PropertiesController {
@@ -29,7 +34,7 @@ export class PropertiesController {
 
   @Post()
   @HttpCode(201)
-  insertOne(@Body() body): Promise<PropertyDocument> {
-    return this.propertiesService.insertOne(body);
+  insertOne(@Body() data: CreatePropertyDto): Promise<PropertyDocument> {
+    return this.propertiesService.insertOne(data);
   }
 }

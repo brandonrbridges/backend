@@ -10,36 +10,24 @@ export type PropertyDocument = HydratedDocument<Property>;
 export class Property {
   _id: mongoose.Schema.Types.ObjectId;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
   user_id: mongoose.Schema.Types.ObjectId;
-
-  @Prop({ type: User })
   user: User;
 
-  @Prop({ type: String })
   name: string;
 
-  @Prop(
-    raw({
-      line_1: { type: String, required: true },
-      line_2: { type: String },
-      city: { type: String, required: true },
-      county: { type: String, required: true },
-      postcode: { type: String, required: true },
-    }),
-  )
-  address: object;
+  address: {
+    line_1: { type: String; required: true };
+    line_2: { type: String };
+    city: { type: String; required: true };
+    county: { type: String; required: true };
+    postcode: { type: String; required: true };
+  };
 
-  @Prop({ type: String, required: true })
   status: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-  tenant_id: mongoose.Schema.Types.ObjectId;
+  tenant_id?: mongoose.Schema.Types.ObjectId;
+  tenant?: User;
 
-  @Prop({ type: User })
-  tenant: User;
-
-  @Prop({ type: Array<any>, default: [] })
   tasks: Array<any>;
 }
 
