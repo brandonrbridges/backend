@@ -30,7 +30,18 @@ export class TasksService {
     let data: TaskDocument[];
 
     if (query) {
-      data = await this.taskModel.find(query).exec();
+      data = await this.taskModel
+        .find(
+          query.user_id
+            ? {
+                $or: [
+                  { user_id: query.user_id },
+                  { landlord_id: query.user_id },
+                ],
+              }
+            : query,
+        )
+        .exec();
     } else {
       data = await this.taskModel.find().exec();
     }
