@@ -21,8 +21,9 @@ import { PropertiesService } from 'src/properties/properties.service';
 export class TasksService {
   constructor(
     @InjectModel('Task') private taskModel: Model<TaskDocument>,
-    @Inject(UsersService) private readonly usersService,
-    @Inject(PropertiesService) private readonly propertiesService,
+    @Inject(UsersService) private readonly usersService: UsersService,
+    @Inject(PropertiesService)
+    private readonly propertiesService: PropertiesService,
   ) {}
 
   async findAll(query?): Promise<TaskDocument[]> {
@@ -36,7 +37,9 @@ export class TasksService {
 
     const collated = data?.map(async (task) => {
       task.user = await this.usersService.findById(task.user_id);
-      task.property = await this.propertiesService.findById(task.property_id);
+
+      if (task.property_id)
+        task.property = await this.propertiesService.findById(task.property_id);
 
       return task;
     });
@@ -46,6 +49,14 @@ export class TasksService {
 
   async findById(id: string): Promise<TaskDocument> {
     const task = await this.taskModel.findById(id).exec();
+
+    task.user = await this.usersService.findById(task.user_id);
+
+    if (task.property_id) {
+      const property = await this.propertiesService.findById(task.property_id);
+
+      task.property = property;
+    }
 
     return task;
   }

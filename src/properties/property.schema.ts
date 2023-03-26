@@ -34,7 +34,7 @@ export class Property {
   status: string;
 
   @Prop({ type: String, required: true })
-  type: string;
+  _type: string; // _ to avoid conflict with JS type
 
   @Prop({ type: Number, required: true })
   rent: string;
@@ -48,8 +48,8 @@ export class Property {
   @Prop({ type: User })
   tenant: User;
 
-  @Prop({ type: Array<any>, default: [] })
-  tasks: Array<any>;
+  @Prop({ type: Array })
+  tasks?: Array<any>;
 }
 
 export const PropertySchema = SchemaFactory.createForClass(Property);

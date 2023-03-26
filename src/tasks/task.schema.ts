@@ -1,6 +1,6 @@
 // Mongoose
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument } from 'mongoose';
+import mongoose, { Document, HydratedDocument } from 'mongoose';
 
 // Schemas
 import { User } from 'src/users/user.schema';
@@ -8,8 +8,8 @@ import { Property } from 'src/properties/property.schema';
 
 export type TaskDocument = HydratedDocument<Task>;
 
-@Schema()
-export class Task {
+@Schema({ autoIndex: true, toJSON: { virtuals: true } })
+export class Task extends Document {
   _id?: mongoose.Schema.Types.ObjectId;
   created_at: Date;
   updated_at: Date;
@@ -35,10 +35,10 @@ export class Task {
     ref: 'Property',
     required: true,
   })
-  property_id: mongoose.Schema.Types.ObjectId;
+  property_id?: mongoose.Schema.Types.ObjectId;
 
   @Prop({ type: Property })
-  property: Property;
+  property?: Property;
 
   @Prop({ required: true })
   title: string;

@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@nestjs/common';
 
 // Mongoose
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 
 // Schemas
 import { PropertyDocument } from './property.schema';
@@ -39,7 +39,9 @@ export class PropertiesService {
     return Promise.all(collated).then((data) => data);
   }
 
-  async findById(id: string): Promise<PropertyDocument> {
+  async findById(
+    id: mongoose.Schema.Types.ObjectId,
+  ): Promise<PropertyDocument> {
     const data = await this.propertyModel.findById(id).exec();
 
     data.user = await this.usersService.findById(data.user_id);
