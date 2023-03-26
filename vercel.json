@@ -9,7 +9,16 @@
       "use": "@vercel/node"
     }
   ],
-  "rewrites": [{ "source": "/(.*)", "destination": "src/main.ts" }],
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://backend-red-mu.vercel.app/:path*"
+    },
+    {
+      "source": "/api/:path*/",
+      "destination": "https://backend-red-mu.vercel.app/:path*/"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
