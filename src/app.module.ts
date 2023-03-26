@@ -24,6 +24,7 @@ import { UsersModule } from './users/users.module';
 // Third Party Modules
 import { GCloudStorageModule } from '@aginix/nestjs-gcloud-storage';
 import { OpenAIModule } from '@platohq/nestjs-openai';
+import { NestjsFormDataModule } from 'nestjs-form-data';
 
 @Module({
   imports: [
@@ -48,6 +49,9 @@ import { OpenAIModule } from '@platohq/nestjs-openai';
         },
       },
     ]),
+    NestjsFormDataModule.config({
+      isGlobal: true,
+    }),
     OpenAIModule.register({
       apiKey: process.env.OPENAI_KEY,
     }),

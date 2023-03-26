@@ -11,6 +11,7 @@ import { PropertyDocument } from './property.schema';
 // Services
 import { UsersService } from 'src/users/users.service';
 import { CreatePropertyDto } from './dtos/create.dto';
+import { UpdatePropertyDto } from './dtos/update.dto';
 
 @Injectable()
 export class PropertiesService {
@@ -65,5 +66,12 @@ export class PropertiesService {
     });
 
     return createdProperty.save();
+  }
+
+  async updateOne(
+    id: mongoose.Schema.Types.ObjectId,
+    data: UpdatePropertyDto,
+  ): Promise<PropertyDocument> {
+    return await this.propertyModel.findOneAndUpdate(id, data, { new: true });
   }
 }

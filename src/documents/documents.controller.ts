@@ -7,6 +7,8 @@ import {
   Patch,
   Post,
   Query,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 
 // Schemas
@@ -18,6 +20,11 @@ import { UpdateDocumentDto } from './dtos/update.dto';
 
 // Documents Dependencies
 import { DocumentsService } from './documents.service';
+import {
+  GCloudStorageFileInterceptor,
+  UploadedFileMetadata,
+} from '@aginix/nestjs-gcloud-storage';
+import { FormDataRequest } from 'nestjs-form-data';
 
 @Controller('documents')
 export class DocumentsController {
@@ -48,5 +55,28 @@ export class DocumentsController {
     @Body() data: UpdateDocumentDto,
   ): Promise<DocumentDocument> {
     return this.documentsService.updateOne(params.id, data);
+  }
+
+  @Post('upload')
+  @HttpCode(201)
+  @FormDataRequest()
+  @UseInterceptors(
+    GCloudStorageFileInterceptor('file', undefined, {
+      // prefix: `avatars/`,
+    }),
+  )
+  uploadDocument(
+    @Param() params,
+    @UploadedFile() file: UploadedFileMetadata,
+    @Body() body,
+  ) {
+    console.log(params);
+    console.log(file);
+    console.log(body);
+
+    return {
+      message: 'File uploaded successfully',
+      url: file.storageUrl,
+    };
   }
 }

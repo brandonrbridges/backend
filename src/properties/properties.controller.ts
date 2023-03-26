@@ -5,8 +5,11 @@ import {
   Get,
   HttpCode,
   Param,
+  Patch,
   Post,
   Query,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common';
 
 // Property Dependencies
@@ -15,6 +18,11 @@ import { PropertiesService } from './properties.service';
 
 // Dtos
 import { CreatePropertyDto } from './dtos/create.dto';
+import {
+  GCloudStorageFileInterceptor,
+  UploadedFileMetadata,
+} from '@aginix/nestjs-gcloud-storage';
+import { UpdatePropertyDto } from './dtos/update.dto';
 
 @Controller('properties')
 export class PropertiesController {
@@ -36,5 +44,14 @@ export class PropertiesController {
   @HttpCode(201)
   insertOne(@Body() data: CreatePropertyDto): Promise<PropertyDocument> {
     return this.propertiesService.insertOne(data);
+  }
+
+  @Patch()
+  @HttpCode(201)
+  updateOne(
+    @Param() params,
+    @Body() data: UpdatePropertyDto,
+  ): Promise<PropertyDocument> {
+    return this.propertiesService.updateOne(params.id, data);
   }
 }
