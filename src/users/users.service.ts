@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 
 import { UserDocument } from 'src/users/user.schema';
 
@@ -15,7 +15,9 @@ export class UsersService {
     return this.userModel.find().exec();
   }
 
-  async findById(id: string): Promise<UserDocument> {
+  async findById(
+    id: mongoose.Schema.Types.ObjectId | string,
+  ): Promise<UserDocument> {
     return this.userModel.findById(id).exec();
   }
 
@@ -29,7 +31,7 @@ export class UsersService {
     return createdUser.save();
   }
 
-  async updateOne(id: string, data: object) {
+  async updateOne(id: mongoose.Schema.Types.ObjectId | string, data: object) {
     const updatedUser = this.userModel
       .findByIdAndUpdate(id, data, {
         new: true,

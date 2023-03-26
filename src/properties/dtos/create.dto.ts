@@ -1,10 +1,17 @@
-import { IsEmail, IsInt, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsEmail,
+  IsInt,
+  IsNotEmpty,
+  IsObject,
+  IsString,
+} from 'class-validator';
 
 export class CreatePropertyDto {
   @IsNotEmpty()
   @IsString()
   name: string;
 
+  @IsObject()
   @IsNotEmpty()
   address: {
     line_1: string;

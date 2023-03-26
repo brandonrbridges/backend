@@ -16,7 +16,7 @@ import { CreatePropertyDto } from './dtos/create.dto';
 export class PropertiesService {
   constructor(
     @InjectModel('Property') private propertyModel: Model<PropertyDocument>,
-    @Inject(UsersService) private readonly usersService,
+    @Inject(UsersService) private readonly usersService: UsersService,
   ) {}
 
   async findAll(query): Promise<PropertyDocument[]> {
