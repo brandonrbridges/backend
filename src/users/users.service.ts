@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
 import mongoose, { Model } from 'mongoose';
@@ -25,6 +25,22 @@ export class UsersService {
     return this.userModel.findOne(args).exec();
   }
 
+  async searchByEmail(email: string): Promise<UserDocument[]> {
+    if (!email) {
+      throw new BadRequestException('Email is required');
+    }
+
+    if (email.length < 3) {
+      throw new BadRequestException('Email must be at least 3 characters');
+    }
+
+    const regex = new RegExp(this.escapeRegex(email), 'gi');
+
+    const results = await this.userModel.find({ email: regex }).exec();
+
+    return results;
+  }
+
   async insertOne(args: object): Promise<UserDocument> {
     const createdUser = new this.userModel(args);
 
@@ -39,5 +55,9 @@ export class UsersService {
       .exec();
 
     return updatedUser;
+  }
+
+  escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
   }
 }

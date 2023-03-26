@@ -1,6 +1,6 @@
 // NestJS Modules
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 
 // Application Dependencies
@@ -36,6 +36,18 @@ import { OpenAIModule } from '@platohq/nestjs-openai';
       defaultBucketname: 'hello-home.app',
     }),
     MongooseModule.forRoot(process.env.DATABASE_URL),
+    MongooseModule.forFeatureAsync([
+      {
+        name: 'User',
+        useFactory: () => {
+          const { UserSchema } = require('./users/user.schema');
+
+          UserSchema.plugin(require('mongoose-fuzzy-searching'), {
+            fields: ['email'],
+          });
+        },
+      },
+    ]),
     OpenAIModule.register({
       apiKey: process.env.OPENAI_KEY,
     }),

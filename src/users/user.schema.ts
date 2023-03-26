@@ -4,7 +4,10 @@ import mongoose, { Document, HydratedDocument } from 'mongoose';
 
 export type UserDocument = HydratedDocument<User>;
 
-@Schema()
+// Modules
+import * as fuzzySearchPlugin from 'mongoose-fuzzy-searching';
+
+@Schema({ autoIndex: true, timestamps: true })
 export class User extends Document {
   @Prop({ type: String, required: true })
   first_name: string;
@@ -26,3 +29,7 @@ export class User extends Document {
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
+
+UserSchema.plugin(fuzzySearchPlugin, {
+  fields: ['email'],
+});

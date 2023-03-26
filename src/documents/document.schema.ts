@@ -3,6 +3,7 @@ import mongoose, { Document, HydratedDocument } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 // Schemas
+import { Property } from 'src/properties/property.schema';
 import { User } from 'src/users/user.schema';
 
 export type DocumentDocument = HydratedDocument<_Document>;
@@ -14,6 +15,16 @@ export class _Document extends Document {
 
   @Prop({ type: User })
   user: User;
+
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Property',
+    required: true,
+  })
+  property_id: mongoose.Schema.Types.ObjectId;
+
+  @Prop({ type: Property })
+  property: Property;
 }
 
 export const DocumentSchema = SchemaFactory.createForClass(_Document);

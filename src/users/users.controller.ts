@@ -37,6 +37,12 @@ export class UsersController {
     return this.usersService.findById(params.id);
   }
 
+  @Get('search/:query')
+  @HttpCode(200)
+  search(@Param() params): Promise<UserDocument[]> {
+    return this.usersService.searchByEmail(params.query);
+  }
+
   @Post()
   @HttpCode(201)
   insertOne(): Promise<UserDocument> {
