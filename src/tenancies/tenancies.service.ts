@@ -1,5 +1,5 @@
 // Nest
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 
 // Mongoose
 import { Model } from 'mongoose';
@@ -15,6 +15,7 @@ import { CreateTenancyDto } from './dtos/create.dto';
 import { PropertiesService } from 'src/properties/properties.service';
 import { UsersService } from 'src/users/users.service';
 import { UpdateTenancyDto } from './dtos/update.dto';
+import { NotFoundError } from 'rxjs';
 
 @Injectable()
 export class TenanciesService {
@@ -35,7 +36,7 @@ export class TenanciesService {
     }
 
     const collated = data?.map(async (tenancy) => {
-      tenancy.user = await this.usersService.findById(tenancy.user_id);
+      tenancy.tenant = await this.usersService.findById(tenancy.tenant_id);
       tenancy.property = await this.propertiesService.findById(
         tenancy.property_id,
       );
@@ -49,7 +50,18 @@ export class TenanciesService {
   async findById(id: string): Promise<TenancyDocument> {
     const data = await this.tenancyModel.findById(id).exec();
 
-    data.user = await this.usersService.findById(data.user_id);
+    data.tenant = await this.usersService.findById(data.tenant_id);
+    data.property = await this.propertiesService.findById(data.property_id);
+
+    return data;
+  }
+
+  async findByPropertyId(property_id): Promise<TenancyDocument> {
+    let data = await this.tenancyModel.findOne({ property_id }).exec();
+
+    if (!data) return null;
+
+    data.tenant = await this.usersService.findById(data.tenant_id);
     data.property = await this.propertiesService.findById(data.property_id);
 
     return data;
@@ -58,7 +70,7 @@ export class TenanciesService {
   async insertOne(data: CreateTenancyDto): Promise<TenancyDocument> {
     const created = new this.tenancyModel(data);
 
-    return created.save();
+    return await created.save();
   }
 
   async updateOne(

@@ -59,20 +59,14 @@ export class DocumentsController {
 
   @Post('upload')
   @HttpCode(201)
-  @FormDataRequest()
   @UseInterceptors(
     GCloudStorageFileInterceptor('file', undefined, {
-      // prefix: `avatars/`,
+      prefix: `documents/`,
     }),
   )
-  uploadDocument(
-    @Param() params,
-    @UploadedFile() file: UploadedFileMetadata,
-    @Body() body,
-  ) {
+  uploadDocument(@Param() params, @UploadedFile() file: UploadedFileMetadata) {
     console.log(params);
     console.log(file);
-    console.log(body);
 
     return {
       message: 'File uploaded successfully',

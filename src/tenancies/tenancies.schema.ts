@@ -11,10 +11,10 @@ export type TenancyDocument = HydratedDocument<Tenancy>;
 @Schema({ autoIndex: true, toJSON: { virtuals: true } })
 export class Tenancy extends Document {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
-  user_id: mongoose.Schema.Types.ObjectId;
+  tenant_id: mongoose.Schema.Types.ObjectId;
 
   @Prop({ type: User })
-  user: User;
+  tenant: User;
 
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
@@ -26,13 +26,13 @@ export class Tenancy extends Document {
   @Prop({ type: Property })
   property: Property;
 
-  @Prop({ type: String, required: true })
+  @Prop({ type: String, default: 'pending' })
   status: string;
 
-  @Prop({ type: Date, required: true })
+  @Prop({ type: Date })
   start_date: Date;
 
-  @Prop({ type: Date, required: true })
+  @Prop({ type: Date })
   end_date: Date;
 }
 

@@ -25,6 +25,9 @@ export class _Document extends Document {
 
   @Prop({ type: Property })
   property: Property;
+
+  @Prop({ type: String, required: true })
+  url: string;
 }
 
 export const DocumentSchema = SchemaFactory.createForClass(_Document);

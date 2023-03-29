@@ -29,19 +29,22 @@ export class CreatePropertyDto {
   @IsString()
   status: string;
 
-  @IsNotEmpty()
   @IsString()
   tenant_id?: string;
 
+  @IsNotEmpty()
   @IsInt()
   bedrooms: number;
 
+  @IsNotEmpty()
   @IsInt()
   bathrooms: number;
 
+  @IsNotEmpty()
   @IsInt()
   deposit: number;
 
+  @IsNotEmpty()
   @IsInt()
   rent: number;
 }

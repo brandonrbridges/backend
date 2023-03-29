@@ -18,11 +18,12 @@ import { PropertiesService } from './properties.service';
 
 // Dtos
 import { CreatePropertyDto } from './dtos/create.dto';
+import { UpdatePropertyDto } from './dtos/update.dto';
+
 import {
   GCloudStorageFileInterceptor,
   UploadedFileMetadata,
 } from '@aginix/nestjs-gcloud-storage';
-import { UpdatePropertyDto } from './dtos/update.dto';
 
 @Controller('properties')
 export class PropertiesController {

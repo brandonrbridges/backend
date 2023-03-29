@@ -35,6 +35,12 @@ export class TenanciesController {
     return this.tenanciesService.findById(params.id);
   }
 
+  @Get('property/:id')
+  @HttpCode(200)
+  findByPropertyId(@Param() params): Promise<TenancyDocument> {
+    return this.tenanciesService.findByPropertyId(params.id);
+  }
+
   @Post()
   @HttpCode(201)
   insertOne(@Body() data: CreateTenancyDto): Promise<TenancyDocument> {

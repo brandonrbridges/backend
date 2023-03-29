@@ -11,10 +11,10 @@ export class Property extends Document {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
   user_id: mongoose.Schema.Types.ObjectId;
 
-  @Prop({ type: User })
+  @Prop({ type: User, required: true })
   user: User;
 
-  @Prop({ type: String })
+  @Prop({ type: String, required: false })
   name: string;
 
   @Prop(
@@ -40,13 +40,13 @@ export class Property extends Document {
   @Prop({ type: Number, required: true })
   deposit: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-  tenant_id: mongoose.Schema.Types.ObjectId;
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: false })
+  tenant_id?: mongoose.Schema.Types.ObjectId;
 
-  @Prop({ type: User })
-  tenant: User;
+  @Prop({ type: User, required: false })
+  tenant?: User;
 
-  @Prop({ type: Array })
+  @Prop({ type: Array, required: false })
   tasks?: Array<any>;
 }
 
